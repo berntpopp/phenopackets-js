@@ -34,9 +34,9 @@ module.exports = {
   v1: {
     ...baseV1,
     ...interpretationV1,
-    ...phenopacketsV1
+    ...phenopacketsV1,
   },
-  
+
   // Version 2 classes
   v2: {
     core: {
@@ -49,20 +49,19 @@ module.exports = {
       ...measurementV2,
       ...medicalActionV2,
       ...metaDataV2,
-      ...pedigreeV2, 
-      ...phenotypicFeatureV2
+      ...pedigreeV2,
+      ...phenotypicFeatureV2,
     },
-    ...phenopacketsV2
+    ...phenopacketsV2,
   },
-  
+
   // VRS and VRSatile classes
   vrs: {
-    ...vrs
+    ...vrs,
   },
   vrsatile: {
-    ...vrsatile
+    ...vrsatile,
   },
   // Export JSON utilities
-  jsonUtils: require('./lib/json-utils')
+  jsonUtils: require('./lib/json-utils'),
 };
-

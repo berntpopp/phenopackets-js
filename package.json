@@ -7,6 +7,11 @@
     "download-protos": "node -e \"process.platform === 'win32' ? require('child_process').execSync('scripts\\\\clone-protos.bat', {stdio: 'inherit'}) : require('child_process').execSync('bash ./scripts/clone-protos.sh', {stdio: 'inherit'})\"",
     "generate-protos": "bash ./scripts/generate-protos.sh",
     "setup": "npm run download-protos && npm run generate-protos",
+    "lint": "eslint . --ext .js",
+    "lint:fix": "eslint . --ext .js --fix",
+    "format": "prettier --write \"**/*.{js,json,md,yml,yaml}\" --ignore-path .prettierignore",
+    "format:check": "prettier --check \"**/*.{js,json,md,yml,yaml}\" --ignore-path .prettierignore",
+    "prepare": "husky",
     "test": "jest",
     "test:watch": "jest --watchAll"
   },
@@ -23,11 +28,27 @@
   "author": "Bernt Popp <bernt.popp@gmail.com>",
   "license": "BSD-3-Clause",
   "devDependencies": {
+    "@eslint/js": "^9.27.0",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-jest": "^28.11.0",
     "google-protobuf": "^3.21.2",
     "grpc-tools": "^1.12.4",
-    "jest": "^29.7.0"
+    "husky": "^9.1.7",
+    "jest": "^29.7.0",
+    "lint-staged": "^16.0.0",
+    "prettier": "^3.5.3"
   },
   "dependencies": {
     "i": "^0.3.7"
+  },
+  "lint-staged": {
+    "*.{js,jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,yml,yaml}": [
+      "prettier --write"
+    ]
   }
 }

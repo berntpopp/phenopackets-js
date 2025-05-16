@@ -1,0 +1,11 @@
+# Generated code
+/lib/
+/build/
+/dist/
+
+# Third-party code and submodules
+/node_modules/
+/protos/
+
+# Coverage reports
+/coverage/

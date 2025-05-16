@@ -5,12 +5,7 @@ module.exports = {
   verbose: true,
   collectCoverage: true,
   coverageDirectory: 'coverage',
-  collectCoverageFrom: [
-    'index.js',
-    'lib/**/*.js'
-  ],
-  coveragePathIgnorePatterns: [
-    '/node_modules/'
-  ],
-  testTimeout: 10000
+  collectCoverageFrom: ['index.js', 'lib/**/*.js'],
+  coveragePathIgnorePatterns: ['/node_modules/'],
+  testTimeout: 10000,
 };

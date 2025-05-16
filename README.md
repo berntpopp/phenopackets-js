@@ -28,10 +28,10 @@ npm install phenopackets-js
 
 ### Prerequisites
 
-* Node.js
-* NPM or Yarn
-* Protocol Buffer Compiler (`protoc`) - Make sure it's installed and available in your PATH
-* Git (for managing proto file sources)
+- Node.js
+- NPM or Yarn
+- Protocol Buffer Compiler (`protoc`) - Make sure it's installed and available in your PATH
+- Git (for managing proto file sources)
 
 ### Repository Setup
 
@@ -62,10 +62,11 @@ This repository now uses a simpler approach that avoids Git submodules. The prot
    ```
 
    These scripts will:
-   * Download phenopacket-schema and VRS proto files directly from GitHub releases
-   * Extract the files to the correct locations
-   * Install Node.js dependencies
-   * Check if protoc is installed
+
+   - Download phenopacket-schema and VRS proto files directly from GitHub releases
+   - Extract the files to the correct locations
+   - Install Node.js dependencies
+   - Check if protoc is installed
 
    The `protos/` directory is excluded from Git in the `.gitignore` file, so these files remain local to your development environment.
 
@@ -185,9 +186,9 @@ npm run setup
 
 This will:
 
-* Clone the phenopacket-schema repository (with all submodules)
-* Set up the proper directory structure
-* Generate all JavaScript files from the proto definitions
+- Clone the phenopacket-schema repository (with all submodules)
+- Set up the proper directory structure
+- Generate all JavaScript files from the proto definitions
 
 The `protos/` directory is excluded from Git in the `.gitignore` file, so these files remain local to your development environment.
 
@@ -250,10 +251,10 @@ bash ./scripts/generate-protos.sh
 
 The script generates JavaScript code for the following components:
 
-* **V1 Phenopackets**: Base, Interpretation, and Phenopackets classes
-* **V2 Phenopackets**: Core classes (Base, Biosample, Disease, etc.) and the main Phenopackets class
-* **VRS**: Variation classes from the GA4GH VRS standard
-* **VRSatile**: Extension classes that build on VRS
+- **V1 Phenopackets**: Base, Interpretation, and Phenopackets classes
+- **V2 Phenopackets**: Core classes (Base, Biosample, Disease, etc.) and the main Phenopackets class
+- **VRS**: Variation classes from the GA4GH VRS standard
+- **VRSatile**: Extension classes that build on VRS
 
 ### Library Structure
 
@@ -294,7 +295,7 @@ individualV1.setId('subject-1');
 // Using v2 classes
 const individualV2 = new pps.v2.core.Individual();
 individualV2.setId('subject-2');
-individualV2.setDateOfBirth("2000-01-01");
+individualV2.setDateOfBirth('2000-01-01');
 
 // Using VRS classes
 const allele = new pps.vrs.Allele();
@@ -347,20 +348,20 @@ const timestamp = pps.jsonUtils.dateToTimestamp(date);
 
 #### Core Utilities
 
-* **toJSON(pbObject, options)**: Converts a Protocol Buffer object to a JSON string
-* **fromJSON(json, MessageType)**: Basic conversion from JSON to Protocol Buffer (simple properties only)
-* **dateToTimestamp(date)**: Converts a JavaScript Date to a Protocol Buffer Timestamp
-* **timestampToDate(timestamp)**: Converts a Protocol Buffer Timestamp to a JavaScript Date
-* **getGetterMethods(pbObject)**: Returns all getter methods on a Protocol Buffer object
-* **getSetterMethods(pbObject)**: Returns all setter methods on a Protocol Buffer object
-* **compareWithGoldenFile(pbObject, filePath)**: Compares a Protocol Buffer object with a golden JSON file
+- **toJSON(pbObject, options)**: Converts a Protocol Buffer object to a JSON string
+- **fromJSON(json, MessageType)**: Basic conversion from JSON to Protocol Buffer (simple properties only)
+- **dateToTimestamp(date)**: Converts a JavaScript Date to a Protocol Buffer Timestamp
+- **timestampToDate(timestamp)**: Converts a Protocol Buffer Timestamp to a JavaScript Date
+- **getGetterMethods(pbObject)**: Returns all getter methods on a Protocol Buffer object
+- **getSetterMethods(pbObject)**: Returns all setter methods on a Protocol Buffer object
+- **compareWithGoldenFile(pbObject, filePath)**: Compares a Protocol Buffer object with a golden JSON file
 
 #### Phenopacket-Specific Utilities
 
-* **phenopacketToJSON(phenopacket, options)**: Specialized converter for Phenopacket objects to JSON
-* **jsonToPhenopacket(json, v2Classes)**: Converts JSON to a Phenopacket with proper handling of nested structures
-* **validatePhenopacketJson(json, schemaVersion)**: Validates a JSON object against the Phenopacket schema
-* **createEmptyPhenopacketJson(schemaVersion)**: Creates an empty phenopacket JSON structure with required fields
+- **phenopacketToJSON(phenopacket, options)**: Specialized converter for Phenopacket objects to JSON
+- **jsonToPhenopacket(json, v2Classes)**: Converts JSON to a Phenopacket with proper handling of nested structures
+- **validatePhenopacketJson(json, schemaVersion)**: Validates a JSON object against the Phenopacket schema
+- **createEmptyPhenopacketJson(schemaVersion)**: Creates an empty phenopacket JSON structure with required fields
 
 ## Testing
 
@@ -412,12 +413,12 @@ npx jest --no-coverage
 
 The test suite includes:
 
-* **exports.test.js**: Verifies that all the expected classes are properly exported from the library
-* **phenopacketV1.test.js**: Tests the functionality of the v1 Phenopacket classes
-* **phenopacketV2.test.js**: Tests the functionality of the v2 Phenopacket classes
-* **vrs.test.js**: Tests the functionality of the VRS classes
-* **vrsatile.test.js**: Tests the functionality of the VRSatile classes
-* **json-utils.test.js**: Tests for JSON serialization/deserialization utilities
+- **exports.test.js**: Verifies that all the expected classes are properly exported from the library
+- **phenopacketV1.test.js**: Tests the functionality of the v1 Phenopacket classes
+- **phenopacketV2.test.js**: Tests the functionality of the v2 Phenopacket classes
+- **vrs.test.js**: Tests the functionality of the VRS classes
+- **vrsatile.test.js**: Tests the functionality of the VRSatile classes
+- **json-utils.test.js**: Tests for JSON serialization/deserialization utilities
 
 ### Test Coverage
 
