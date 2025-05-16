@@ -61,6 +61,8 @@ module.exports = {
   },
   vrsatile: {
     ...vrsatile
-  }
+  },
+  // Export JSON utilities
+  jsonUtils: require('./lib/json-utils')
 };
 

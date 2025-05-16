@@ -305,6 +305,54 @@ phenopacket.setId('phenopacket-1');
 phenopacket.setSubject(individualV2);
 ```
 
+## JSON Utilities
+
+phenopackets-js provides utilities for working with JSON data:
+
+```javascript
+const pps = require('phenopackets-js');
+
+// Convert a Phenopacket to JSON
+const phenopacket = new pps.v2.Phenopacket();
+phenopacket.setId('example-id');
+
+// Convert to JSON string
+const jsonString = pps.jsonUtils.toJSON(phenopacket);
+// Convert to pretty-printed JSON
+const prettyJson = pps.jsonUtils.toJSON(phenopacket, { pretty: true });
+
+// Basic conversion from JSON to a Phenopacket (primitive values only)
+const simpleJson = '{"id":"simple-example"}';
+const simplePhenopacket = pps.jsonUtils.fromJSON(simpleJson, pps.v2.Phenopacket);
+
+// For complex objects, manual conversion is recommended
+const complexJson = JSON.parse(jsonString);
+const newPhenopacket = new pps.v2.Phenopacket();
+newPhenopacket.setId(complexJson.id);
+
+// If complex JSON has nested objects, create them explicitly
+if (complexJson.subject) {
+  const subject = new pps.v2.core.Individual();
+  subject.setId(complexJson.subject.id);
+  // Set other subject properties...
+  newPhenopacket.setSubject(subject);
+}
+
+// Helper utilities for working with Protocol Buffer timestamps
+const date = new Date();
+const timestamp = pps.jsonUtils.dateToTimestamp(date);
+```
+
+### Available JSON Utilities
+
+* **toJSON(pbObject, options)**: Converts a Protocol Buffer object to a JSON string
+* **fromJSON(json, MessageType)**: Basic conversion from JSON to Protocol Buffer (simple properties only)
+* **dateToTimestamp(date)**: Converts a JavaScript Date to a Protocol Buffer Timestamp
+* **timestampToDate(timestamp)**: Converts a Protocol Buffer Timestamp to a JavaScript Date
+* **getGetterMethods(pbObject)**: Returns all getter methods on a Protocol Buffer object
+* **getSetterMethods(pbObject)**: Returns all setter methods on a Protocol Buffer object
+* **compareWithGoldenFile(pbObject, filePath)**: Compares a Protocol Buffer object with a golden JSON file
+
 ## Testing
 
 phenopackets-js includes a comprehensive test suite using Jest. The tests verify the functionality of the generated JavaScript classes and ensure that they can be properly serialized and deserialized.
