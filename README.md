@@ -305,6 +305,44 @@ phenopacket.setId('phenopacket-1');
 phenopacket.setSubject(individualV2);
 ```
 
+## Testing
+
+phenopackets-js includes a comprehensive test suite using Jest. The tests verify the functionality of the generated JavaScript classes and ensure that they can be properly serialized and deserialized.
+
+### Running Tests
+
+To run the tests:
+
+```bash
+npm test
+```
+
+To run tests in watch mode (useful during development):
+
+```bash
+npm run test:watch
+```
+
+### Test Structure
+
+The test suite includes:
+
+* **exports.test.js**: Verifies that all the expected classes are properly exported from the library
+* **phenopacketV1.test.js**: Tests the functionality of the v1 Phenopacket classes
+* **phenopacketV2.test.js**: Tests the functionality of the v2 Phenopacket classes
+* **vrs.test.js**: Tests the functionality of the VRS classes
+* **vrsatile.test.js**: Tests the functionality of the VRSatile classes
+* **json-utils.test.js**: Tests for JSON serialization/deserialization utilities
+
+### Adding New Tests
+
+When adding new features or fixing bugs, please include appropriate tests. Each test file should:
+
+1. Test basic class instantiation
+2. Test setting and getting values
+3. Test serialization/deserialization
+4. Test conversion to JavaScript objects
+
 ## Contributing
 
 ### Contribution Guidelines

@@ -7,7 +7,8 @@
     "download-protos": "node -e \"process.platform === 'win32' ? require('child_process').execSync('scripts\\\\clone-protos.bat', {stdio: 'inherit'}) : require('child_process').execSync('bash ./scripts/clone-protos.sh', {stdio: 'inherit'})\"",
     "generate-protos": "bash ./scripts/generate-protos.sh",
     "setup": "npm run download-protos && npm run generate-protos",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "test:watch": "jest --watchAll"
   },
   "keywords": [
     "ga4gh",
@@ -23,7 +24,8 @@
   "license": "BSD-3-Clause",
   "devDependencies": {
     "google-protobuf": "^3.21.2",
-    "grpc-tools": "^1.12.4"
+    "grpc-tools": "^1.12.4",
+    "jest": "^29.7.0"
   },
   "dependencies": {
     "i": "^0.3.7"
