@@ -179,16 +179,19 @@ Here's the complete workflow for using this repository without Git submodules.
 git clone https://github.com/berntpopp/phenopackets-js.git
 cd phenopackets-js
 
-# Download the proto files (choose one):
-# For Linux/macOS:
-bash ./scripts/download-protos.sh
+# Complete setup (downloads proto files and generates JS)
+npm run setup
 
-# For Windows:
-scripts\download-protos.bat
+# Or perform steps individually:
 
-# Generate JavaScript code
-bash ./scripts/generate-protos.sh
+# 1. Download proto files
+npm run download-protos
+
+# 2. Generate JavaScript code
+npm run generate-protos
 ```
+
+This simplified approach keeps the proto files local to your environment and excluded from Git.
 
 ### Updating Proto Files
 
