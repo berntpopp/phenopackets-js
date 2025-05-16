@@ -1,7 +1,4 @@
-#!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
-
-# Add any other pre-commit checks here if needed
-# Example: npm test
+# Pre-commit hook for phenopackets-js
+# Run lint-staged to check staged files before commit
 
 npx lint-staged

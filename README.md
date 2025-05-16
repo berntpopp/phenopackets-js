@@ -363,6 +363,42 @@ const timestamp = pps.jsonUtils.dateToTimestamp(date);
 - **validatePhenopacketJson(json, schemaVersion)**: Validates a JSON object against the Phenopacket schema
 - **createEmptyPhenopacketJson(schemaVersion)**: Creates an empty phenopacket JSON structure with required fields
 
+## Code Quality and Linting
+
+This project uses ESLint and Prettier to enforce code quality standards and consistent formatting.
+
+### ESLint
+
+To run ESLint and check for code quality issues:
+
+```bash
+npm run lint
+```
+
+To automatically fix fixable issues:
+
+```bash
+npm run lint:fix
+```
+
+### Prettier
+
+To check if files are formatted according to Prettier rules:
+
+```bash
+npm run format:check
+```
+
+To automatically format all files:
+
+```bash
+npm run format
+```
+
+### Pre-commit Hooks
+
+The project uses Husky and lint-staged to automatically run linting and formatting on files before commits. This ensures that all committed code meets the project's quality standards.
+
 ## Testing
 
 phenopackets-js includes a comprehensive test suite using Jest. The tests verify the functionality of the generated JavaScript classes and ensure that they can be properly serialized and deserialized.
@@ -407,6 +443,37 @@ Run tests without code coverage (faster):
 
 ```bash
 npx jest --no-coverage
+```
+
+### Golden Files Testing
+
+The project includes "golden files" tests that validate the library against known good examples of phenopackets. These tests verify that the library can correctly process real-world examples.
+
+- **Location**: Tests are in `tests/golden.test.js`
+- **Test Fixtures**: JSON fixtures are located in `tests/fixtures`
+
+To run only the golden files tests:
+
+```bash
+npx jest tests/golden.test.js
+```
+
+When extending the library with new features, add corresponding golden file examples to ensure compatibility and correctness.
+
+### Module Structure and Construction Tests
+
+The test suite includes specialized tests that explore the module structure and demonstrate proper object construction:
+
+- **structure.test.js**: Tests the module structure and confirms proper export of all classes
+- **vrs-construction.test.js**: Shows how to properly construct and populate VRS objects
+- **vrsatile-construction.test.js**: Demonstrates construction of VRSatile objects
+
+These tests serve as both validation and as examples of how to correctly use the library. They can be run with:
+
+```bash
+npx jest tests/structure.test.js
+npx jest tests/vrs-construction.test.js
+npx jest tests/vrsatile-construction.test.js
 ```
 
 ### Test Structure
@@ -479,4 +546,12 @@ To be defined.
 
 ## License
 
-To be defined, matching the main schema repo (e.g., Apache 2.0 or BSD 3-Clause).
+### phenopackets-js License
+
+This implementation (phenopackets-js) is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+### phenopacket-schema License
+
+The original [phenopacket-schema](https://github.com/phenopackets/phenopacket-schema) that this library implements is licensed under the BSD 3-Clause License by the Global Alliance for Genomics and Health.
+
+The schema definitions that this code is generated from are Copyright (c) 2018-2021, Global Alliance for Genomics and Health.
