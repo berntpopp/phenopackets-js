@@ -1,0 +1,323 @@
+{
+  "id": "test-phenopacket-v2-002",
+  "subject": {
+    "id": "patient-b02",
+    "sex": "UNKNOWN_SEX"
+  },
+  "phenotypicFeatures": [
+    {
+      "modifiers": [
+        {
+          "id": "HP:0012835",
+          "label": "Left"
+        }
+      ],
+      "type": {
+        "id": "HP:0000107",
+        "label": "Renal cyst"
+      },
+      "onset": {
+        "timestamp": "2022-10-31T00:00:00Z"
+      }
+    },
+    {
+      "type": {
+        "id": "HP:0000121",
+        "label": "Nephrocalcinosis"
+      },
+      "onset": {
+        "timestamp": "2022-10-31T00:00:00Z"
+      },
+      "excluded": 1
+    },
+    {
+      "modifiers": [
+        {
+          "id": "HP:0012833",
+          "label": "Unilateral"
+        },
+        {
+          "id": "HP:0012834",
+          "label": "Right"
+        },
+        {
+          "id": "HP:0025710",
+          "label": "Late young adult onset"
+        },
+        {
+          "id": "HP:0031796",
+          "label": "Recurrent"
+        }
+      ],
+      "type": {
+        "id": "HP:0000787",
+        "label": "Nephrolithiasis"
+      },
+      "onset": {
+        "timestamp": "2022-10-31T00:00:00Z"
+      }
+    },
+    {
+      "type": {
+        "id": "HP:0000819",
+        "label": "Diabetes mellitus"
+      },
+      "onset": {
+        "timestamp": "2022-10-31T00:00:00Z"
+      },
+      "excluded": 1
+    },
+    {
+      "type": {
+        "id": "HP:0000822",
+        "label": "Hypertension"
+      },
+      "onset": {
+        "timestamp": "2022-10-31T00:00:00Z"
+      },
+      "excluded": 1
+    },
+    {
+      "type": {
+        "id": "HP:0001513",
+        "label": "Obesity"
+      },
+      "onset": {
+        "timestamp": "2022-10-31T00:00:00Z"
+      },
+      "excluded": 1
+    },
+    {
+      "type": {
+        "id": "HP:0002148",
+        "label": "Hypophosphatemia"
+      },
+      "onset": {
+        "timestamp": "2022-10-31T00:00:00Z"
+      }
+    },
+    {
+      "type": {
+        "id": "HP:0002150",
+        "label": "Hypercalciuria"
+      },
+      "onset": {
+        "timestamp": "2022-10-31T00:00:00Z"
+      },
+      "excluded": 1
+    },
+    {
+      "type": {
+        "id": "HP:0002155",
+        "label": "Hypertriglyceridemia"
+      },
+      "onset": {
+        "timestamp": "2022-10-31T00:00:00Z"
+      },
+      "excluded": 1
+    },
+    {
+      "type": {
+        "id": "HP:0003109",
+        "label": "Hyperphosphaturia"
+      },
+      "onset": {
+        "timestamp": "2022-10-31T00:00:00Z"
+      },
+      "excluded": 1
+    },
+    {
+      "type": {
+        "id": "HP:0003124",
+        "label": "Hypercholesterolemia"
+      },
+      "onset": {
+        "timestamp": "2022-10-31T00:00:00Z"
+      },
+      "excluded": 1
+    },
+    {
+      "type": {
+        "id": "HP:0003141",
+        "label": "Increased LDL cholesterol concentration"
+      },
+      "onset": {
+        "timestamp": "2022-10-31T00:00:00Z"
+      },
+      "excluded": 1
+    },
+    {
+      "type": {
+        "id": "HP:0003149",
+        "label": "Hyperuricosuria"
+      },
+      "onset": {
+        "timestamp": "2022-10-31T00:00:00Z"
+      },
+      "excluded": 1
+    },
+    {
+      "type": {
+        "id": "HP:0003159",
+        "label": "Hyperoxaluria"
+      },
+      "onset": {
+        "timestamp": "2022-10-31T00:00:00Z"
+      },
+      "excluded": 1
+    },
+    {
+      "type": {
+        "id": "HP:0003233",
+        "label": "Decreased HDL cholesterol concentration"
+      },
+      "onset": {
+        "timestamp": "2022-10-31T00:00:00Z"
+      },
+      "excluded": 1
+    },
+    {
+      "type": {
+        "id": "HP:0011037",
+        "label": "Decreased urine output"
+      },
+      "onset": {
+        "timestamp": "2022-10-31T00:00:00Z"
+      }
+    },
+    {
+      "type": {
+        "id": "HP:0012053",
+        "label": "Decreased circulating calcifediol concentration"
+      },
+      "onset": {
+        "timestamp": "2022-10-31T00:00:00Z"
+      }
+    },
+    {
+      "type": {
+        "id": "HP:0012405",
+        "label": "Hypocitraturia"
+      },
+      "onset": {
+        "timestamp": "2022-10-31T00:00:00Z"
+      },
+      "excluded": 1
+    },
+    {
+      "type": {
+        "id": "HP:0012604",
+        "label": "Hyponatriuria"
+      },
+      "onset": {
+        "timestamp": "2022-10-31T00:00:00Z"
+      },
+      "excluded": 1
+    },
+    {
+      "type": {
+        "id": "HP:0012605",
+        "label": "Hypernatriuria"
+      },
+      "onset": {
+        "timestamp": "2022-10-31T00:00:00Z"
+      },
+      "excluded": 1
+    },
+    {
+      "type": {
+        "id": "HP:0012622",
+        "label": "Chronic kidney disease"
+      },
+      "onset": {
+        "timestamp": "2022-10-31T00:00:00Z"
+      },
+      "excluded": 1
+    },
+    {
+      "type": {
+        "id": "HP:0020129",
+        "label": "Abnormal urine protein level"
+      },
+      "onset": {
+        "timestamp": "2022-10-31T00:00:00Z"
+      },
+      "excluded": 1
+    },
+    {
+      "type": {
+        "id": "HP:0025502",
+        "label": "Overweight"
+      },
+      "onset": {
+        "timestamp": "2022-10-31T00:00:00Z"
+      },
+      "excluded": 1
+    },
+    {
+      "type": {
+        "id": "HP:0031415",
+        "label": "High serum calcitriol"
+      },
+      "onset": {
+        "timestamp": "2022-10-31T00:00:00Z"
+      }
+    },
+    {
+      "type": {
+        "id": "HP:0032316",
+        "label": "Family history"
+      },
+      "onset": {
+        "timestamp": "2022-10-31T00:00:00Z"
+      },
+      "excluded": 1
+    },
+    {
+      "type": {
+        "id": "HP:0032943",
+        "label": "Abnormal urine pH"
+      },
+      "onset": {
+        "timestamp": "2022-10-31T00:00:00Z"
+      },
+      "excluded": 1
+    },
+    {
+      "type": {
+        "id": "HP:0033626",
+        "label": "Increased non-HDL cholesterol concentration"
+      },
+      "onset": {
+        "timestamp": "2022-10-31T00:00:00Z"
+      },
+      "excluded": 1
+    }
+  ],
+  "diseases": [
+    {
+      "term": {
+        "id": "NCBI:7421",
+        "label": "SLC34A1"
+      },
+      "onset": {
+        "timestamp": "2022-10-31T00:00:00Z"
+      }
+    }
+  ],
+  "metaData": {
+    "created": "2023-02-20T09:45:00Z",
+    "createdBy": "test-curator",
+    "resources": [
+      {
+        "id": "hp",
+        "name": "human phenotype ontology",
+        "url": "http://purl.obolibrary.org/obo/hp.obo",
+        "version": "2023-01-27",
+        "namespacePrefix": "HP",
+        "iriPrefix": "http://purl.obolibrary.org/obo/HP_"
+      }
+    ],
+    "phenopacketSchemaVersion": "2.0"
+  }
+}
