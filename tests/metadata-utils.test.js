@@ -158,7 +158,10 @@ describe('Metadata Handling Utilities', () => {
   });
 
   describe('Update History Tracking', () => {
-    it('should track and serialize update history in metadata', () => {
+    // Create a shared variable to store update data between tests
+    let metadataUpdateJson;
+
+    it('should track update history in metadata', () => {
       // Create metadata with update
       const metadata = new pps.v2.core.MetaData();
       metadata.setCreatedBy('original-creator');
@@ -192,23 +195,30 @@ describe('Metadata Handling Utilities', () => {
 
       // Convert to JSON
       const jsonString = pps.jsonUtils.toJSON(metadata);
-      const parsedObj = JSON.parse(jsonString);
+      metadataUpdateJson = JSON.parse(jsonString);
 
       // Verify basic structure without assumptions about properties
-      expect(Array.isArray(parsedObj.updatesList)).toBe(true);
-      expect(parsedObj.updatesList.length).toBe(2);
+      expect(Array.isArray(metadataUpdateJson.updatesList)).toBe(true);
+      expect(metadataUpdateJson.updatesList.length).toBe(2);
+    });
 
-      // Create a separate test for update content verification
-      // This avoids conditional expects if updatesList structure changes
-      it('correctly serializes update content', () => {
-        // Basic validations for the first update
-        expect(parsedObj.updatesList[0].updatedBy).toBe('first-updater');
-        expect(parsedObj.updatesList[0].comment).toBe('First update: added phenotypic features');
+    it('should correctly serialize update content', () => {
+      // Skip if we don't have the data from the previous test
+      if (!metadataUpdateJson || !metadataUpdateJson.updatesList) {
+        return;
+      }
 
-        // Basic validations for the second update
-        expect(parsedObj.updatesList[1].updatedBy).toBe('second-updater');
-        expect(parsedObj.updatesList[1].comment).toBe('Second update: added disease information');
-      });
+      // Basic validations for the first update
+      expect(metadataUpdateJson.updatesList[0].updatedBy).toBe('first-updater');
+      expect(metadataUpdateJson.updatesList[0].comment).toBe(
+        'First update: added phenotypic features'
+      );
+
+      // Basic validations for the second update
+      expect(metadataUpdateJson.updatesList[1].updatedBy).toBe('second-updater');
+      expect(metadataUpdateJson.updatesList[1].comment).toBe(
+        'Second update: added disease information'
+      );
     });
   });
 });
