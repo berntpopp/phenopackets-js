@@ -311,7 +311,9 @@ phenopackets-js includes a comprehensive test suite using Jest. The tests verify
 
 ### Running Tests
 
-To run the tests:
+#### Basic Test Commands
+
+To run all tests:
 
 ```bash
 npm test
@@ -321,6 +323,32 @@ To run tests in watch mode (useful during development):
 
 ```bash
 npm run test:watch
+```
+
+#### Advanced Testing Commands
+
+Run a specific test file:
+
+```bash
+npx jest tests/exports.test.js
+```
+
+Run tests matching a specific name pattern:
+
+```bash
+npx jest -t "should create a Phenopacket"
+```
+
+Run tests with verbose output:
+
+```bash
+npx jest --verbose
+```
+
+Run tests without code coverage (faster):
+
+```bash
+npx jest --no-coverage
 ```
 
 ### Test Structure
@@ -334,6 +362,14 @@ The test suite includes:
 * **vrsatile.test.js**: Tests the functionality of the VRSatile classes
 * **json-utils.test.js**: Tests for JSON serialization/deserialization utilities
 
+### Test Coverage
+
+Test coverage reports are automatically generated when running `npm test`. The coverage report shows the percentage of code that is covered by tests across statements, branches, functions, and lines.
+
+A detailed HTML coverage report is generated in the `coverage/` directory. Open `coverage/lcov-report/index.html` in a browser to view it.
+
+Current baseline coverage is approximately 37% across the codebase, with higher coverage for critical components.
+
 ### Adding New Tests
 
 When adding new features or fixing bugs, please include appropriate tests. Each test file should:
@@ -342,6 +378,40 @@ When adding new features or fixing bugs, please include appropriate tests. Each 
 2. Test setting and getting values
 3. Test serialization/deserialization
 4. Test conversion to JavaScript objects
+
+### Testing Guidelines for Protocol Buffer Classes
+
+Protocol Buffer generated classes have some specific testing considerations:
+
+1. **API Reference**: Always check the actual generated API methods using `Object.getOwnPropertyNames(Object.getPrototypeOf(instance))` as the method names may not match what you expect. The debug scripts in this repository can help with this.
+
+2. **Nested Objects**: When setting nested objects, make sure to create complete object hierarchies. Protobuf requires all nested objects to be properly instantiated.
+
+3. **Enums**: Use the enum values exported from the appropriate namespace, not hardcoded numbers or strings.
+
+4. **Binary Serialization**: Always test both serialization and deserialization to ensure round-trip compatibility.
+
+### Debugging Tests
+
+If you encounter issues with tests, try these debugging strategies:
+
+1. **View Generated API**: The repository includes debug scripts (`debug-vrs.js` and `debug-vrsatile.js`) that show the actual API methods available on the generated classes.
+
+2. **Inspect Test Output**: Use `console.log` or run tests with the `--verbose` flag to get more information.
+
+3. **Isolate the Issue**: Run only the specific test that's failing using the `-t` flag.
+
+4. **Check Method Names**: Most failures are due to incorrect method names. The Protocol Buffer compiler generates specific getter and setter method names that may not match expectations.
+
+### Future: Golden File Testing
+
+A planned enhancement is to implement "golden file" tests that compare serialization output with known-good Phenopacket JSON files from other language implementations. This will ensure cross-language compatibility.
+
+To prepare for this:
+
+1. Place reference JSON files in a `tests/golden` directory
+2. Implement utility functions in `json-utils.js` for accurate comparison
+3. Add tests that verify both directions: JSON → Object → JSON and Object → JSON → Object
 
 ## Contributing
 
