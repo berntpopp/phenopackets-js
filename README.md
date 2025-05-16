@@ -46,19 +46,29 @@ The easiest way to set up the repository is to use the provided setup script, wh
    cd phenopackets-js
    ```
 
-2. Run the setup script:
+2. Choose the appropriate setup script for your operating system:
+
+   #### For Linux/macOS:
 
    ```bash
-   # On Linux/macOS:
-   bash ./scripts/setup-repo.sh
-   
-   # On Windows (with Git Bash):
    bash ./scripts/setup-repo.sh
    ```
 
-   This script will:
+   #### For Windows:
+
+   ```powershell
+   # Run in Command Prompt or PowerShell (as Administrator for best results)
+   .\scripts\setup-repo-windows.bat
+   ```
+
+   The Windows script handles common Git submodule issues by:
+   * Enabling long path support in Git (`core.longpaths=true`) 
+   * Directly cloning the VRS repository instead of using nested submodules
+   * Creating proper linkage between repositories
+
+   These scripts will:
    * Add the phenopacket-schema repository as a Git submodule
-   * Initialize and update all nested submodules (including VRS protobuf)
+   * Initialize and update all necessary submodules (including VRS protobuf)
    * Install Node.js dependencies
    * Check if protoc is installed
 
