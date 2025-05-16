@@ -1,3 +1,0 @@
-[submodule "protos/phenopacket-schema-source"]
-	path = protos/phenopacket-schema-source
-	url = https://github.com/phenopackets/phenopacket-schema.git

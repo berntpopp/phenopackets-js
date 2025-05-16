@@ -35,3 +35,6 @@ build/
 *.njsproj
 *.sln
 *.sw?
+
+# Proto files - downloaded locally instead of using submodules
+protos/

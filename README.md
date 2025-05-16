@@ -35,9 +35,9 @@ npm install phenopackets-js
 
 ### Repository Setup
 
-### Automated Setup
+### Automated Setup (No Git Submodules)
 
-The easiest way to set up the repository is to use the provided setup script, which automates all the necessary steps:
+This repository now uses a simpler approach that avoids Git submodules. The proto files are downloaded directly from GitHub releases, which prevents common Git submodule issues:
 
 1. Clone this repository:
 
@@ -48,29 +48,26 @@ The easiest way to set up the repository is to use the provided setup script, wh
 
 2. Choose the appropriate setup script for your operating system:
 
-   #### For Linux/macOS:
+   #### For Linux/macOS
 
    ```bash
-   bash ./scripts/setup-repo.sh
+   bash ./scripts/download-protos.sh
+   npm install
    ```
 
-   #### For Windows:
+   #### For Windows
 
-   ```powershell
-   # Run in Command Prompt or PowerShell (as Administrator for best results)
-   .\scripts\setup-repo-windows.bat
+   ```cmd
+   scripts\download-protos.bat
    ```
-
-   The Windows script handles common Git submodule issues by:
-   * Enabling long path support in Git (`core.longpaths=true`) 
-   * Directly cloning the VRS repository instead of using nested submodules
-   * Creating proper linkage between repositories
 
    These scripts will:
-   * Add the phenopacket-schema repository as a Git submodule
-   * Initialize and update all necessary submodules (including VRS protobuf)
+   * Download phenopacket-schema and VRS proto files directly from GitHub releases
+   * Extract the files to the correct locations
    * Install Node.js dependencies
    * Check if protoc is installed
+
+   The `protos/` directory is excluded from Git in the `.gitignore` file, so these files remain local to your development environment.
 
 ### Manual Setup
 
@@ -83,22 +80,32 @@ Alternatively, you can perform the setup steps manually:
    cd phenopackets-js
    ```
 
-2. Add the phenopacket-schema repository as a Git submodule:
+2. Download and extract phenopacket-schema release:
 
    ```bash
-   git submodule add https://github.com/phenopackets/phenopacket-schema.git protos/phenopacket-schema-source
+   mkdir -p protos/phenopacket-schema-source/src
+   curl -L https://github.com/phenopackets/phenopacket-schema/archive/refs/tags/v2.0.0.zip -o phenopacket-schema.zip
+   unzip phenopacket-schema.zip
+   cp -r phenopacket-schema-2.0.0/src/* protos/phenopacket-schema-source/src/
    ```
 
-3. Initialize and update the VRS protobuf submodule within phenopacket-schema:
+3. Download and extract VRS protobuf release:
 
    ```bash
-   cd protos/phenopacket-schema-source
-   git submodule init
-   git submodule update
-   cd ../..  # Return to repository root
+   mkdir -p protos/vrs-protobuf
+   curl -L https://github.com/ga4gh/vrs-protobuf/archive/refs/tags/v1.2.1.zip -o vrs-protobuf.zip
+   unzip vrs-protobuf.zip
+   cp -r vrs-protobuf-1.2.1/* protos/vrs-protobuf/
    ```
 
-4. Install Node.js dependencies:
+4. Create the link from phenopacket-schema to VRS:
+
+   ```bash
+   mkdir -p protos/phenopacket-schema-source/src/vrs-protobuf
+   cp -r protos/vrs-protobuf/* protos/phenopacket-schema-source/src/vrs-protobuf/
+   ```
+
+5. Install Node.js dependencies:
 
    ```bash
    npm install
@@ -156,11 +163,54 @@ protos/
                             └── phenopackets.proto
 ```
 
-### Generating JavaScript Code from Proto Files
+## Complete Workflow
+
+Here's the complete workflow for using this repository without Git submodules.
+
+### Initial Setup
+
+1. Clone the repository
+2. Download the proto files
+3. Generate JavaScript code
+4. Use the library
+
+```bash
+# Clone the repository
+git clone https://github.com/berntpopp/phenopackets-js.git
+cd phenopackets-js
+
+# Download the proto files (choose one):
+# For Linux/macOS:
+bash ./scripts/download-protos.sh
+
+# For Windows:
+scripts\download-protos.bat
+
+# Generate JavaScript code
+bash ./scripts/generate-protos.sh
+```
+
+### Updating Proto Files
+
+When new versions of the phenopacket-schema or VRS are released, you'll need to update your proto files:
+
+1. Edit the version numbers in `scripts/download-protos.sh` or `scripts/download-protos.bat`
+2. Run the download script again
+3. Regenerate the JavaScript code
+
+For example, to update to a newer version:
+
+```bash
+# Edit the version in the script first, then:
+bash ./scripts/download-protos.sh
+bash ./scripts/generate-protos.sh
+```
+
+### Generating JavaScript Code
 
 The `generate-protos.sh` script handles compiling the `.proto` files into JavaScript classes. It:
 
-1. Compiles VRS proto files first (from the submodule)
+1. Compiles VRS proto files first
 2. Compiles VRSatile proto files (which depend on VRS)
 3. Compiles both v1 and v2 phenopacket schemas to JavaScript
 4. Places the generated files in the `lib/` directory
@@ -168,12 +218,10 @@ The `generate-protos.sh` script handles compiling the `.proto` files into JavaSc
 Run the generation script:
 
 ```bash
+# Using npm script (recommended)
 npm run generate-protos
-```
 
-On Windows, you may need to run it with bash explicitly:
-
-```bash
+# Or directly with bash
 bash ./scripts/generate-protos.sh
 ```
 
