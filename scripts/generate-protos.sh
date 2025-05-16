@@ -13,12 +13,33 @@
 # If using a submodule:
 PROTO_SRC_DIR="protos/phenopacket-schema-source/src/main/proto"
 
-# Check for VRS-protobuf submodule
+# Check for VRS-protobuf - either as a submodule or direct clone
 VRS_PROTO_DIR="protos/phenopacket-schema-source/src/vrs-protobuf"
+DIRECT_VRS_DIR="protos/vrs-protobuf"
+
 if [ -d "$VRS_PROTO_DIR" ]; then
-  echo "VRS protobuf submodule found at $VRS_PROTO_DIR"
+  echo "VRS protobuf found at $VRS_PROTO_DIR"
+elif [ -d "$DIRECT_VRS_DIR" ]; then
+  echo "Direct VRS protobuf found at $DIRECT_VRS_DIR"
+  
+  # Create the directory if it doesn't exist
+  mkdir -p "$VRS_PROTO_DIR" 2>/dev/null
+  
+  # On Windows, we may have used a direct clone instead of a submodule
+  echo "Using directly cloned VRS repository..."
+  
+  # If using Windows, try to create symlink or copy files
+  if [ -f "/c/Windows/System32/cmd.exe" ] || [ -f "C:/Windows/System32/cmd.exe" ]; then
+    echo "Windows detected. Ensuring VRS files are properly linked..."
+    # For Windows: If symlink failed in setup script, copy the files
+    cp -r "$DIRECT_VRS_DIR"/* "$VRS_PROTO_DIR/" 2>/dev/null
+  else
+    # For Unix systems: create a symlink
+    ln -sf "../../$DIRECT_VRS_DIR" "$VRS_PROTO_DIR" 2>/dev/null || \
+    cp -r "$DIRECT_VRS_DIR"/* "$VRS_PROTO_DIR/" 2>/dev/null
+  fi
 else
-  echo "VRS protobuf submodule not found at $VRS_PROTO_DIR"
+  echo "VRS protobuf not found at $VRS_PROTO_DIR or $DIRECT_VRS_DIR"
   echo "Checking if we need to initialize submodules..."
   
   # Try to initialize and update submodules if they exist
