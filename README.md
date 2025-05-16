@@ -345,6 +345,8 @@ const timestamp = pps.jsonUtils.dateToTimestamp(date);
 
 ### Available JSON Utilities
 
+#### Core Utilities
+
 * **toJSON(pbObject, options)**: Converts a Protocol Buffer object to a JSON string
 * **fromJSON(json, MessageType)**: Basic conversion from JSON to Protocol Buffer (simple properties only)
 * **dateToTimestamp(date)**: Converts a JavaScript Date to a Protocol Buffer Timestamp
@@ -352,6 +354,13 @@ const timestamp = pps.jsonUtils.dateToTimestamp(date);
 * **getGetterMethods(pbObject)**: Returns all getter methods on a Protocol Buffer object
 * **getSetterMethods(pbObject)**: Returns all setter methods on a Protocol Buffer object
 * **compareWithGoldenFile(pbObject, filePath)**: Compares a Protocol Buffer object with a golden JSON file
+
+#### Phenopacket-Specific Utilities
+
+* **phenopacketToJSON(phenopacket, options)**: Specialized converter for Phenopacket objects to JSON
+* **jsonToPhenopacket(json, v2Classes)**: Converts JSON to a Phenopacket with proper handling of nested structures
+* **validatePhenopacketJson(json, schemaVersion)**: Validates a JSON object against the Phenopacket schema
+* **createEmptyPhenopacketJson(schemaVersion)**: Creates an empty phenopacket JSON structure with required fields
 
 ## Testing
 
