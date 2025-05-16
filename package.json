@@ -4,7 +4,7 @@
   "description": "JavaScript/TypeScript library for GA4GH Phenopackets, generated from protobuf definitions.",
   "main": "index.js",
   "scripts": {
-    "download-protos": "node -e \"process.platform === 'win32' ? require('child_process').execSync('scripts\\\\download-protos.bat', {stdio: 'inherit'}) : require('child_process').execSync('bash ./scripts/download-protos.sh', {stdio: 'inherit'})\"",
+    "download-protos": "node -e \"process.platform === 'win32' ? require('child_process').execSync('scripts\\\\clone-protos.bat', {stdio: 'inherit'}) : require('child_process').execSync('bash ./scripts/clone-protos.sh', {stdio: 'inherit'})\"",
     "generate-protos": "bash ./scripts/generate-protos.sh",
     "setup": "npm run download-protos && npm run generate-protos",
     "test": "echo \"Error: no test specified\" && exit 1"

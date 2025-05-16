@@ -159,18 +159,18 @@ protos/
                             ├── core/
                             │   ├── base.proto
                             │   ├── biosample.proto
-                            │   ├── ... (other core protos)
+                            │   └── ... (other core protos)
                             └── phenopackets.proto
 ```
 
 ## Complete Workflow
 
-Here's the complete workflow for using this repository without Git submodules.
+Here's the complete workflow for using this repository with proto files that are stored locally but excluded from Git.
 
 ### Initial Setup
 
 1. Clone the repository
-2. Download the proto files
+2. Clone the required proto files
 3. Generate JavaScript code
 4. Use the library
 
@@ -179,34 +179,52 @@ Here's the complete workflow for using this repository without Git submodules.
 git clone https://github.com/berntpopp/phenopackets-js.git
 cd phenopackets-js
 
-# Complete setup (downloads proto files and generates JS)
+# Set up all dependencies with a single command
 npm run setup
+```
 
-# Or perform steps individually:
+This will:
 
-# 1. Download proto files
+* Clone the phenopacket-schema repository (with all submodules)
+* Set up the proper directory structure
+* Generate all JavaScript files from the proto definitions
+
+The `protos/` directory is excluded from Git in the `.gitignore` file, so these files remain local to your development environment.
+
+### Separate Steps
+
+If needed, you can run the steps individually:
+
+```bash
+# 1. Clone proto repositories
 npm run download-protos
 
 # 2. Generate JavaScript code
 npm run generate-protos
 ```
 
-This simplified approach keeps the proto files local to your environment and excluded from Git.
-
 ### Updating Proto Files
 
-When new versions of the phenopacket-schema or VRS are released, you'll need to update your proto files:
-
-1. Edit the version numbers in `scripts/download-protos.sh` or `scripts/download-protos.bat`
-2. Run the download script again
-3. Regenerate the JavaScript code
-
-For example, to update to a newer version:
+When you need to update to newer versions of the proto files, simply delete the protos directory and run the setup again:
 
 ```bash
-# Edit the version in the script first, then:
-bash ./scripts/download-protos.sh
-bash ./scripts/generate-protos.sh
+# Remove existing proto files
+rm -rf protos
+
+# On Windows:
+rmdir /s /q protos
+
+# Then run the setup again
+npm run setup
+```
+
+Alternatively, you can use Git commands in the protos directory to pull the latest changes:
+
+```bash
+cd protos/phenopacket-schema-source
+git pull --recurse-submodules
+cd ../..
+npm run generate-protos
 ```
 
 ### Generating JavaScript Code
