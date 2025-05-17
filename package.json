@@ -1,5 +1,5 @@
 {
-  "name": "phenopackets-js",
+  "name": "@berntpopp/phenopackets-js",
   "version": "1.0.0",
   "description": "JavaScript/TypeScript library for GA4GH Phenopackets, generated from protobuf definitions.",
   "main": "index.js",

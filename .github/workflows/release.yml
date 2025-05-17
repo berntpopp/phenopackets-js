@@ -31,6 +31,8 @@ jobs:
         with:
           node-version: 'lts/*'
           cache: 'npm'
+          registry-url: 'https://registry.npmjs.org'
+          scope: '@berntpopp'
 
       - name: Install dependencies
         run: npm ci
