@@ -35,14 +35,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Download/Clone Protos
-        run: |
-          git submodule update --init --recursive
-          cd phenopacket-schema
-          git checkout v2.0.0
-
-      - name: Generate JavaScript from Protos
-        run: npm run generate-protos
+      - name: Setup Protos
+        run: npm run setup
 
       - name: Run Tests
         run: npm test
