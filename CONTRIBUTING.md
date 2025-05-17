@@ -22,7 +22,7 @@ We use GitHub to host code, to track issues and feature requests, as well as acc
 
 We follow the [Conventional Commits](https://www.conventionalcommits.org/) specification. This leads to more readable messages that are easy to follow when looking through the project history.
 
-```
+```text
 <type>(<scope>): <description>
 
 [optional body]
@@ -43,7 +43,7 @@ Types:
 
 Example:
 
-```
+```text
 feat(parser): add ability to parse arrays
 
 This adds the capability to parse array structures in the phenopacket format.
@@ -130,11 +130,32 @@ Please update the documentation when you make changes:
 
 ## Release Process
 
-1. Update version in package.json
-2. Update CHANGELOG.md
-3. Create a release PR
-4. After merge, tag the release
-5. CI will publish to npm
+This project uses [semantic-release](https://github.com/semantic-release/semantic-release) for automated versioning and releases. The process is triggered automatically when commits are pushed to the main branch.
+
+### How it Works
+
+1. When commits are pushed to `main`, GitHub Actions runs the release workflow
+2. semantic-release analyzes commit messages to determine the next version
+3. CHANGELOG.md is automatically updated
+4. A new version is published to npm
+5. A GitHub release is created with release notes
+6. Related issues and PRs are updated
+
+### Release Types
+
+The type of release is determined by your commit messages:
+
+- `fix:` commits trigger a PATCH release (e.g., 1.0.0 → 1.0.1)
+- `feat:` commits trigger a MINOR release (e.g., 1.0.0 → 1.1.0)
+- `feat!:` or commits with `BREAKING CHANGE:` in the footer trigger a MAJOR release (e.g., 1.0.0 → 2.0.0)
+
+### Pre-releases
+
+Pre-releases can be created by pushing to specific branches:
+
+- `next` branch for next regular release candidates
+- `beta` branch for beta versions
+- `alpha` branch for alpha versions
 
 ## Getting Help
 

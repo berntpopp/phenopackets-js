@@ -26,9 +26,22 @@
     "vrsatile"
   ],
   "author": "Bernt Popp <bernt.popp@gmail.com>",
-  "license": "BSD-3-Clause",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/berntpopp/phenopackets-js.git"
+  },
   "devDependencies": {
     "@eslint/js": "^9.27.0",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^11.0.2",
+    "@semantic-release/npm": "^12.0.1",
+    "conventional-changelog-conventionalcommits": "^8.0.0",
     "eslint": "^8.57.1",
     "eslint-config-prettier": "^10.1.5",
     "eslint-plugin-jest": "^28.11.0",
@@ -37,7 +50,8 @@
     "husky": "^9.1.7",
     "jest": "^29.7.0",
     "lint-staged": "^16.0.0",
-    "prettier": "^3.5.3"
+    "prettier": "^3.5.3",
+    "semantic-release": "^24.2.4"
   },
   "dependencies": {
     "i": "^0.3.7"

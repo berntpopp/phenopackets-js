@@ -1,0 +1,54 @@
+name: Release Package
+
+on:
+  push:
+    branches:
+      - main # Primary release branch
+      - next # For pre-releases
+      - '+([0-9])?(.{+([0-9]),x}).x' # Maintenance branches like 1.x.x
+
+permissions:
+  contents: write # To commit package.json, CHANGELOG.md, and tags
+  issues: write # To comment on released issues
+  pull-requests: write # To comment on released PRs
+  id-token: write # For OIDC token to NPM for provenance
+
+jobs:
+  release:
+    name: Semantic Release
+    runs-on: ubuntu-latest
+    # Prevent duplicate runs for pushes made by semantic-release itself
+    if: ${{ !contains(github.event.head_commit.message, 'chore(release):') }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Required for semantic-release to analyze full history
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Download/Clone Protos
+        run: |
+          git submodule update --init --recursive
+          cd phenopacket-schema
+          git checkout v2.0.0
+
+      - name: Generate JavaScript from Protos
+        run: npm run generate-protos
+
+      - name: Run Tests
+        run: npm test
+
+      - name: Semantic Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npx semantic-release
