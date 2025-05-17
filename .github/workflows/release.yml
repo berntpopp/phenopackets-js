@@ -35,14 +35,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Install Protocol Buffers Compiler
+      - name: Install Protocol Buffers Compiler and Plugins
         run: |
           sudo apt-get update
           sudo apt-get install -y protobuf-compiler
-          git clone https://github.com/protocolbuffers/protobuf-javascript.git
-          cd protobuf-javascript
-          sudo make install
-          cd ..
+          sudo npm install -g google-protobuf
+          sudo npm install -g protoc-gen-js
 
       - name: Setup Protos
         run: npm run setup
