@@ -39,6 +39,10 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y protobuf-compiler
+          git clone https://github.com/protocolbuffers/protobuf-javascript.git
+          cd protobuf-javascript
+          sudo make install
+          cd ..
 
       - name: Setup Protos
         run: npm run setup
