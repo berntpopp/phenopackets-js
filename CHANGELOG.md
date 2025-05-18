@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/berntpopp/phenopackets-js/compare/v1.0.1...v1.0.2) (2025-05-18)
+
+### Bug Fixes
+
+- enhance phenopacket JSON validation ([cd3b3a3](https://github.com/berntpopp/phenopackets-js/commit/cd3b3a397bcb0c2ebf242451429d57d5dbbd6cfd))
+- **tests:** update validation test cases to match new behavior ([793e01c](https://github.com/berntpopp/phenopackets-js/commit/793e01c60e1a03022af5b79ab3223049da743f84))
+
 ## [1.0.1](https://github.com/berntpopp/phenopackets-js/compare/v1.0.0...v1.0.1) (2025-05-18)
 
 ### Bug Fixes
