@@ -1,6 +1,7 @@
 name: Release Package
 
 on:
+  workflow_dispatch: # Enable manual triggering
   push:
     branches:
       - main # Primary release branch

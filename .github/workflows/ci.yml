@@ -1,6 +1,7 @@
 name: Node.js CI Checks
 
 on:
+  workflow_dispatch: # Enable manual triggering
   push:
     branches-ignore:
       - main
