@@ -46,11 +46,16 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: List proto files
-        run: find protos -name "*.proto" -type f
+      - name: Make scripts executable
+        run: |
+          chmod +x ./scripts/clone-protos.sh
+          chmod +x ./scripts/generate-protos.sh
 
       - name: Setup Protos
         run: npm run setup
+
+      - name: List proto files
+        run: find protos -name "*.proto" -type f
 
       - name: Build JSDoc API Documentation
         run: npm run docs:generate-api
