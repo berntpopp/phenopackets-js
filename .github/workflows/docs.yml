@@ -28,8 +28,12 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          submodules: recursive
+
+      - name: Download protos
+        run: |
+          chmod +x ./scripts/clone-protos.sh
+          npm run download-protos
+          ls -la protos/
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
