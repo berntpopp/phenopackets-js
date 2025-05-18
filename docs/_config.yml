@@ -1,12 +1,22 @@
 title: Phenopackets-JS
 description: JavaScript library for GA4GH Phenopackets
-theme: jekyll-theme-minimal
+theme: just-the-docs
+
+# Theme settings
+color_scheme: light
+search_enabled: true
+
+# URL settings
+url: https://berntpopp.github.io
+baseurl: /phenopackets-js
+
+# Build settings
 markdown: kramdown
 kramdown:
   input: GFM
   syntax_highlighter: rouge
 
-# Enable relative links
-relative_links:
-  enabled: true
-  collections: true
+# Navigation
+aux_links:
+  'View on GitHub':
+    - 'https://github.com/berntpopp/phenopackets-js'
