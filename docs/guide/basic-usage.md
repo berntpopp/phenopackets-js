@@ -2,7 +2,7 @@
 layout: default
 title: Basic Usage
 parent: Guides
-nav_order: 2
+nav_order: 3
 ---
 
 ## Basic Usage
