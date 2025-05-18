@@ -38,15 +38,21 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Download/Clone Proto Sources
-        id: download_protos
-        run: npm run download-protos
-        # Consider adding error handling or checks if this script can fail silently
+      - name: Install Protocol Buffers Compiler
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y protobuf-compiler
+          sudo npm install -g google-protobuf
+          sudo npm install -g protoc-gen-js
+          protoc --version
 
-      - name: Generate JavaScript from Protos
-        id: generate_protos
-        run: npm run generate-protos
-        # Ensure this script exits with non-zero on failure
+      - name: Make scripts executable
+        run: |
+          chmod +x ./scripts/clone-protos.sh
+          chmod +x ./scripts/generate-protos.sh
+
+      - name: Setup Protos
+        run: npm run setup
 
       - name: Check Code Formatting
         run: npm run format:check
