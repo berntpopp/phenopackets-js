@@ -1,0 +1,70 @@
+name: Node.js CI Checks
+
+on:
+  push:
+    branches-ignore:
+      - main
+      - master
+      - next
+      - next-major
+      - 'beta'
+      - 'alpha'
+      - '+([0-9])?(.{+([0-9]),x}).x' # Matches branches like 1.x.x, 1.2.x etc.
+  pull_request:
+    branches:
+      - main
+      - master # Include if 'master' is also a primary/release branch
+
+jobs:
+  build_lint_test: # Renamed job for clarity
+    name: Build, Lint, & Test (Node ${{ matrix.node-version }})
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x, 22.x] # Test against recent LTS and current Node versions
+      fail-fast: false # Allow all matrix jobs to complete even if one fails
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Download/Clone Proto Sources
+        id: download_protos
+        run: npm run download-protos
+        # Consider adding error handling or checks if this script can fail silently
+
+      - name: Generate JavaScript from Protos
+        id: generate_protos
+        run: npm run generate-protos
+        # Ensure this script exits with non-zero on failure
+
+      - name: Check Code Formatting
+        run: npm run format:check
+
+      - name: Lint Code
+        run: npm run lint
+
+      - name: Run Tests
+        run: npm test
+        # If npm test is configured to run Jest with --coverage,
+        # coverage reports will be generated but not uploaded externally.
+
+      # Optional: Archive test results or coverage reports as artifacts
+      # This step is useful for debugging failed runs or reviewing coverage locally.
+      - name: Archive Jest coverage report
+        if: always() # Run this step even if previous steps failed, to get coverage data
+        uses: actions/upload-artifact@v4
+        with:
+          name: jest-coverage-report-node-${{ matrix.node-version }}
+          path: coverage/ # Default Jest coverage directory
+          retention-days: 7 # Keep artifacts for 7 days
