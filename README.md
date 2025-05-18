@@ -5,7 +5,7 @@
 [![Release Package](https://github.com/berntpopp/phenopackets-js/actions/workflows/release.yml/badge.svg)](https://github.com/berntpopp/phenopackets-js/actions/workflows/release.yml)
 [![Documentation](https://github.com/berntpopp/phenopackets-js/actions/workflows/docs.yml/badge.svg)](https://berntpopp.github.io/phenopackets-js/)
 
-A JavaScript/TypeScript library for working with GA4GH Phenopackets, generated from the official [phenopacket-schema](https://github.com/phenopackets/phenopacket-schema) protobuf definitions.
+A JavaScript library for working with GA4GH Phenopackets, generated from the official [phenopacket-schema](https://github.com/phenopackets/phenopacket-schema) protobuf definitions.
 
 ## Quick Start
 
