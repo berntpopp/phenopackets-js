@@ -26,6 +26,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -33,16 +35,17 @@ jobs:
           node-version: 'lts/*'
           cache: 'npm'
 
-      - name: Install Protoc
+      - name: Install Protoc and dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y protobuf-compiler
+          protoc --version
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Download/Clone Protos
-        run: npm run download-protos
+      - name: List proto files
+        run: find protos -name "*.proto" -type f
 
       - name: Generate JavaScript from Protos
         run: npm run generate-protos
