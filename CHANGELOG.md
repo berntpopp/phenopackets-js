@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/berntpopp/phenopackets-js/compare/v1.0.0...v1.0.1) (2025-05-18)
+
+### Bug Fixes
+
+- configure npm scope and registry for publishing ([fbe9c29](https://github.com/berntpopp/phenopackets-js/commit/fbe9c298efa45df8be7a26a5c3d04e660706a1c2))
+- use NODE_AUTH_TOKEN for npm authentication ([465149a](https://github.com/berntpopp/phenopackets-js/commit/465149a2a2469a13ed3e4f7c2123ee4a70c164cb))
+
 # 1.0.0 (2025-05-17)
 
 ### Bug Fixes
