@@ -29,22 +29,18 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Download protos
-        run: |
-          chmod +x ./scripts/clone-protos.sh
-          npm run download-protos
-          ls -la protos/
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 'lts/*'
           cache: 'npm'
 
-      - name: Install Protoc and dependencies
+      - name: Install Protocol Buffers Compiler and Plugins
         run: |
           sudo apt-get update
           sudo apt-get install -y protobuf-compiler
+          sudo npm install -g google-protobuf
+          sudo npm install -g protoc-gen-js
           protoc --version
 
       - name: Install dependencies
@@ -53,8 +49,8 @@ jobs:
       - name: List proto files
         run: find protos -name "*.proto" -type f
 
-      - name: Generate JavaScript from Protos
-        run: npm run generate-protos
+      - name: Setup Protos
+        run: npm run setup
 
       - name: Build JSDoc API Documentation
         run: npm run docs:generate-api
