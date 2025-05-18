@@ -9,3 +9,6 @@
 
 # Coverage reports
 /coverage/
+
+# Documentation
+/docs/api/scripts/

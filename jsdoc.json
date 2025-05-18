@@ -1,0 +1,40 @@
+{
+  "tags": {
+    "allowUnknownTags": true,
+    "dictionaries": ["jsdoc", "closure"]
+  },
+  "source": {
+    "include": ["index.js", "lib"],
+    "includePattern": ".+\\.js(doc|x)?$",
+    "excludePattern": "(^|\\/|\\\\)_"
+  },
+  "plugins": [],
+  "templates": {
+    "cleverLinks": false,
+    "monospaceLinks": false,
+    "default": {
+      "outputSourceFiles": true
+    },
+    "docdash": {
+      "static": true,
+      "sort": true,
+      "search": true,
+      "collapse": true,
+      "typedefs": true,
+      "removeQuotes": "none",
+      "menu": {
+        "GitHub Repo": {
+          "href": "https://github.com/berntpopp/phenopackets-js",
+          "target": "_blank"
+        }
+      }
+    }
+  },
+  "opts": {
+    "destination": "./docs/api/",
+    "encoding": "utf8",
+    "private": true,
+    "recurse": true,
+    "template": "./node_modules/docdash"
+  }
+}
