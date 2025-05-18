@@ -259,34 +259,65 @@ describe('JSON Utilities Edge Cases', () => {
         subject: {
           id: 'minimal-subject',
         },
+        metaData: {
+          created: '2024-01-01T12:00:00Z',
+          createdBy: 'test-creator',
+          resources: [
+            {
+              id: 'hp',
+              name: 'human phenotype ontology',
+              url: 'http://purl.obolibrary.org/obo/hp.owl',
+              version: '2024-01-01',
+              namespacePrefix: 'HP',
+              iriPrefix: 'http://purl.obolibrary.org/obo/HP_',
+            },
+          ],
+        },
       };
 
       // Validate
       const validationResult = pps.jsonUtils.validatePhenopacketJson(minimalJson, 'v2');
       expect(validationResult.isValid).toBe(true);
       expect(validationResult.errors.length).toBe(0);
+      // We expect some warnings about recommended fields
+      expect(validationResult.warnings.length).toBeGreaterThan(0);
     });
 
-    it('should validate phenopackets with all optional fields as null or empty', () => {
-      // All fields present but optional ones are null or empty
+    it('should validate phenopackets with all optional fields properly structured', () => {
+      // All fields present with proper structure
       const allFieldsJson = {
         id: 'all-fields-phenopacket',
         subject: {
           id: 'all-fields-subject',
           alternateIds: [],
           dateOfBirth: null,
-          sex: null,
+          sex: 0, // UNKNOWN
         },
         phenotypicFeaturesList: [],
         diseasesList: [],
         biosamplesList: [],
-        metaData: null,
+        metaData: {
+          created: '2024-01-01T12:00:00Z',
+          createdBy: 'test-creator',
+          resources: [
+            {
+              id: 'hp',
+              name: 'human phenotype ontology',
+              url: 'http://purl.obolibrary.org/obo/hp.owl',
+              version: '2024-01-01',
+              namespacePrefix: 'HP',
+              iriPrefix: 'http://purl.obolibrary.org/obo/HP_',
+            },
+          ],
+        },
       };
 
       // Validate
       const validationResult = pps.jsonUtils.validatePhenopacketJson(allFieldsJson, 'v2');
       expect(validationResult.isValid).toBe(true);
       expect(validationResult.errors.length).toBe(0);
+      // There shouldn't be any warnings since we provided all recommended fields
+      expect(validationResult.warnings.length).toBe(0);
     });
 
     it('should detect missing required nested fields', () => {
@@ -334,22 +365,38 @@ describe('JSON Utilities Edge Cases', () => {
       const v1ValidationResult = pps.jsonUtils.validatePhenopacketJson(v1Json, 'v1');
       expect(v1ValidationResult.isValid).toBe(true);
 
-      // Create a v2 format JSON with just the critical fields
+      // Create a v2 format JSON with required fields
       const v2Json = {
         id: 'v2-phenopacket',
         subject: {
           id: 'v2-subject',
+          sex: 0, // UNKNOWN
+        },
+        metaData: {
+          created: '2024-01-01T12:00:00Z',
+          createdBy: 'test-creator',
+          resources: [
+            {
+              id: 'hp',
+              name: 'human phenotype ontology',
+              url: 'http://purl.obolibrary.org/obo/hp.owl',
+              version: '2024-01-01',
+              namespacePrefix: 'HP',
+              iriPrefix: 'http://purl.obolibrary.org/obo/HP_',
+            },
+          ],
         },
       };
 
       // Validate as v2
       const v2ValidationResult = pps.jsonUtils.validatePhenopacketJson(v2Json, 'v2');
       expect(v2ValidationResult.isValid).toBe(true);
+      expect(v2ValidationResult.errors.length).toBe(0);
 
-      // Test that unsupported schema version throws an error
-      expect(() => {
-        pps.jsonUtils.validatePhenopacketJson(v2Json, 'v3');
-      }).toThrow('Unsupported schema version: v3');
+      // Test that unsupported schema version returns validation error
+      const v3Result = pps.jsonUtils.validatePhenopacketJson(v2Json, 'v3');
+      expect(v3Result.isValid).toBe(false);
+      expect(v3Result.errors[0]).toBe('Validation failed: Unsupported schema version: v3');
     });
   });
 });

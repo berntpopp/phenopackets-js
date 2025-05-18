@@ -89,6 +89,20 @@ describe('Phenopacket-specific JSON Utilities', () => {
           },
         },
       ],
+      metaData: {
+        created: '2024-01-01T12:00:00Z',
+        createdBy: 'test-creator',
+        resources: [
+          {
+            id: 'hp',
+            name: 'human phenotype ontology',
+            url: 'http://purl.obolibrary.org/obo/hp.owl',
+            version: '2024-01-01',
+            namespacePrefix: 'HP',
+            iriPrefix: 'http://purl.obolibrary.org/obo/HP_',
+          },
+        ],
+      },
     };
 
     // Validate the JSON
@@ -140,12 +154,11 @@ describe('Phenopacket-specific JSON Utilities', () => {
     expect(validationResult.errors).toContain('Missing required field: id');
     expect(validationResult.errors).toContain('Missing required field: subject.id');
     expect(validationResult.errors).toContain(
-      'PhenotypicFeature at index 0 is missing required field: type.id'
+      'PhenotypicFeature at index 0 is missing required field: type'
     );
-    expect(validationResult.errors).toContain(
-      'Disease at index 0 is missing required field: term.id'
-    );
+    expect(validationResult.errors).toContain('Disease at index 0 is missing required field: term');
     expect(validationResult.errors).toContain('Biosample at index 0 is missing required field: id');
+    expect(validationResult.errors).toContain('Missing required field: metaData');
   });
 
   // Test for createEmptyPhenopacketJson
@@ -189,9 +202,9 @@ describe('Phenopacket-specific JSON Utilities', () => {
     }).toThrow('v2Classes must be provided');
 
     // Test validatePhenopacketJson with invalid schema version
-    expect(() => {
-      pps.jsonUtils.validatePhenopacketJson({}, 'v3');
-    }).toThrow('Unsupported schema version: v3');
+    const v3Result = pps.jsonUtils.validatePhenopacketJson({}, 'v3');
+    expect(v3Result.isValid).toBe(false);
+    expect(v3Result.errors[0]).toBe('Validation failed: Unsupported schema version: v3');
 
     // Test createEmptyPhenopacketJson with invalid schema version
     expect(() => {

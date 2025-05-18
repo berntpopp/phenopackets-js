@@ -92,6 +92,7 @@ describe('Metadata Handling Utilities', () => {
       // Create metadata
       const metadata = new pps.v2.core.MetaData();
       metadata.setCreatedBy('metadata-validator');
+      metadata.setCreated(pps.jsonUtils.dateToTimestamp(new Date()));
       if (typeof metadata.setPhenopacketSchemaVersion === 'function') {
         metadata.setPhenopacketSchemaVersion('2.0');
       }
@@ -102,17 +103,21 @@ describe('Metadata Handling Utilities', () => {
       hpoResource.setName('Human Phenotype Ontology');
       hpoResource.setUrl('http://purl.obolibrary.org/obo/hp.obo');
       hpoResource.setVersion('2023-01-27');
+      hpoResource.setNamespacePrefix('HP');
+      hpoResource.setIriPrefix('http://purl.obolibrary.org/obo/HP_');
       metadata.addResources(hpoResource);
 
+      // Set metadata on phenopacket
       phenopacket.setMetaData(metadata);
 
       // Convert to JSON
-      const jsonString = pps.jsonUtils.phenopacketToJSON(phenopacket);
+      const jsonString = pps.jsonUtils.toJSON(phenopacket);
       const parsedObj = JSON.parse(jsonString);
 
       // Validate - this should pass validation regardless of schema version details
       const validationResult = pps.jsonUtils.validatePhenopacketJson(parsedObj);
       expect(validationResult.isValid).toBe(true);
+      expect(validationResult.errors.length).toBe(0);
 
       // Check metadata structure - only check what we know will be there
       expect(parsedObj.metaData.createdBy).toBe('metadata-validator');
@@ -127,7 +132,7 @@ describe('Metadata Handling Utilities', () => {
           id: 'subject-invalid-metadata',
         },
         metaData: {
-          // Missing createdBy field which is required
+          // Missing createdBy and created fields which are required
           resourcesList: [
             {
               // Missing required id field
@@ -138,22 +143,17 @@ describe('Metadata Handling Utilities', () => {
         },
       };
 
-      // To avoid conditional expects, we need to restructure this test completely
-      // Create the invalid phenopacket with missing required fields
       const validationResult = pps.jsonUtils.validatePhenopacketJson(invalidPhenopacket);
 
-      // Document the validation behavior without conditional expects
-      // This just logs information about the validation result for debugging
-      console.log(
-        `Validation result for invalid metadata: isValid=${validationResult.isValid}, errors=${validationResult.errors.length}`
-      );
+      // The phenopacket should be invalid
+      expect(validationResult.isValid).toBe(false);
 
-      // Instead of conditional testing, create separate tests for different validation scenarios
-      // 1. Test for errors presence, which should always be true for validation
-      expect(Array.isArray(validationResult.errors)).toBe(true);
+      // Verify specific validation errors
+      expect(validationResult.errors).toContain('Missing required field: metaData.created');
+      expect(validationResult.errors).toContain('Missing required field: metaData.createdBy');
 
-      // We don't define any further tests here that depend on validation.isValid
-      // If needed, separate tests can be created in the describe block
+      // Verify that we have exactly two errors
+      expect(validationResult.errors.length).toBe(2);
     });
   });
 
