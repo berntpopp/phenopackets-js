@@ -10,6 +10,8 @@ on:
       - 'index.js'
       - 'package.json'
       - 'jsdoc.json'
+      - '.github/workflows/**'
+      - 'scripts/**'
   workflow_dispatch: # Allow manual trigger
 
 permissions:
